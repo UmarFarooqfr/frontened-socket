@@ -1,0 +1,47 @@
+<!-- check Console.log for connections -->
+<mat-toolbar color="primary">
+
+  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>My App</span>
+  <span class="example-spacer"></span>
+
+
+  <mat-icon [matMenuTriggerFor]="menu" [matBadge]="isUser1Page ? notification1.length : notification2.length"> notifications_none </mat-icon>
+</mat-toolbar>
+<mat-menu #menu="matMenu">
+  <ng-container *ngIf="isUser1Page; else user2Page">
+    <div *ngFor="let notification of notification1" mat-menu-item style="display: flex;flex-direction: column;">
+      <div style="width: 100%;height: 20%;">
+        <span style="font-size: 20px;font-weight: 600;">{{ notification.title }} &nbsp;({{ notification.user }})</span>
+      </div>
+      <div style="width: 100%;height: 70%;display: flex;flex-direction: row;align-items: center;">
+        <mat-icon style="width: 100px;">{{notification.Icon}}</mat-icon>
+        <span style="font-size: 18px;">
+          {{notification.message}}
+        </span>
+      </div>
+    </div>
+  </ng-container>
+  <ng-template #user2Page>
+    <div *ngFor="let notification of notification2" mat-menu-item style="display: flex;flex-direction: column;">
+      <div style="width: 100%;height: 20%;">
+        <span style="font-size: 20px;font-weight: 600;"> {{ notification.title }} &nbsp;({{ notification.user }})</span>
+      </div>
+      <div style="width: 100%;height: 70%;display: flex;flex-direction: row;align-items: center;">
+        <mat-icon style="width: 100px;">{{notification.Icon}}</mat-icon>
+        <span style="font-size: 18px;">
+          {{notification.message}}
+        </span>
+      </div>
+    </div>
+  </ng-template>
+</mat-menu>
+
+<div style="margin-top: 40px;margin-left: 40px;">
+  <button mat-raised-button [routerLink]="['/user1']">User 1</button>
+  <button mat-raised-button [routerLink]="['/user2']">User 2</button>
+
+</div>
+<router-outlet></router-outlet>
